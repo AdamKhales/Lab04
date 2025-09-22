@@ -39,14 +39,6 @@ public class Lab extends Application{
         Label lblRegistration = new Label("Amount registration:");
         Label lblLodging = new Label("Amount lodging per night:");
         
-        Label ValidateDays = new Label("Error");
-        Label ValidateAirfare = new Label("Error");
-        Label ValidateRental = new Label("Car rental fees:");
-        Label ValidateMiles = new Label("Number of miles driven:");
-        Label ValidateParking = new Label("Parking fees:");
-        Label ValidateTaxi = new Label("Taxi charges:");
-        Label ValidateRegistration = new Label("Conference or seminar registration fees");
-        Label ValidateLodging = new Label("Lodging charges per night:");
         
         TextField days = new TextField();
         TextField airfare = new TextField();
@@ -57,7 +49,7 @@ public class Lab extends Application{
         TextField registration = new TextField();
         TextField lodging = new TextField();
         Label totalExpenses = new Label();
-        Label excess = new Label();
+        Label allowable = new Label();
 
         
         Button calculate = new Button("Calculate");
@@ -89,7 +81,7 @@ public class Lab extends Application{
             registration.setText("");
             lodging.setText("");
             totalExpenses.setText("");
-            excess.setText("");
+            allowable.setText("");
         });
         
         
@@ -122,7 +114,8 @@ public class Lab extends Application{
         
         gp.add(lblLodging, 0, 7);
         gp.add(lodging, 1, 7);
-        gp.add(totalExpenses, 0, 9);
+        gp.add(totalExpenses, 1, 9);
+        gp.add(allowable, 1, 10);
         gp.add(clear, 0, 8);
         gp.add(calculate, 1, 8);
         gp.setPadding(new Insets(20,20,20,20));
@@ -133,7 +126,6 @@ public class Lab extends Application{
         stage.setScene(scene);
         stage.show();
         
-        Label[] labels = {ValidateDays, ValidateAirfare, ValidateRental, ValidateMiles,ValidateParking, ValidateTaxi, ValidateRegistration, ValidateLodging};
         
         
         
