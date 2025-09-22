@@ -62,7 +62,7 @@ public class Lab extends Application{
         
         Button calculate = new Button("Calculate");
         calculate.setOnAction(e -> {
-            totalExpenses.setText(calculateExpenses(
+            totalExpenses.setText("Total Expenses:" + calculateExpenses(
             Integer.parseInt(days.getText()),
             Double.parseDouble(airfare.getText()),
             Double.parseDouble(rental.getText()),
@@ -88,6 +88,8 @@ public class Lab extends Application{
             taxi.setText("");
             registration.setText("");
             lodging.setText("");
+            totalExpenses.setText("");
+            excess.setText("");
         });
         
         
@@ -136,38 +138,14 @@ public class Lab extends Application{
         
         
     }
-    public String calculateExcess(int days, double airfare, double rental, double miles, double parking, double taxi, double registration, double lodging){
-        double totalExpenses = days + airfare + rental + miles + parking + taxi + registration + (lodging * days);
-        double allowableMiles = miles * 0.27;
-        double allowableParking = days * 10.00;
-        double allowableTaxi = days * 20.00;
-        double allowableLodging = days * 95.00;
-        double allowableMeals = days * 37.00;
-        
-        double remainingParking = 0;
-        double remainingTaxi = 0;
-        double remainingLodging = 0;
-        
-
-        
-        
-        if (allowableParking < parking) {
-            remainingParking = parking - allowableParking;
-        }
-        
-        if (allowableTaxi < taxi) {
-            remainingTaxi = taxi - allowableTaxi;
-        }
-        
-        if(allowableLodging < (lodging * days)) {
-            remainingLodging = lodging - allowableLodging;
-        }
-        
-        double excess = remainingParking + remainingTaxi + remainingLodging + airfare;
-        
-        
-        
-        return "" + excess + airfare + rental;
+    public double calculateAllowable(int days, double airfare, double rental, double miles, double parking, double taxi, double registration, double lodging){
+        return miles * 0.27 +
+                days * 37.00 +
+                Math.min(parking, days * 10.00)+
+                Math.min(taxi, days * 20.00)+
+                Math.min(lodging, days * 95.00);
+                
+                
     }
     
     public String calculateExpenses(int days, double airfare, double rental, double miles, double parking, double taxi, double registration, double lodging){
