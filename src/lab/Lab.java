@@ -75,10 +75,10 @@ public class Lab extends Application{
             
             
             double expenses = calculateExpenses(d,af,r,m,p,t,reg,l);
-            double totalAllowable = calculateAllowable(d,af,r,m,p,t,reg,l);
+            double totalAllowable = calculateAllowable(d,m,p,t,reg,l);
             
-            totalExpenses.setText("Total Expenses: " + expenses + "$");
-            allowable.setText("Total Allowable: " + totalAllowable + "$");
+            totalExpenses.setText("Total Expenses: " + expenses + " $");
+            allowable.setText("Total Allowable: " + totalAllowable + " $");
             
             excess.setText(calculateExcess(expenses,totalAllowable));
             
@@ -144,6 +144,7 @@ public class Lab extends Application{
         gp.setVgap(10);
         
         Scene scene = new Scene(gp, 500,500);
+        scene.getStylesheets().add(getClass().getResource("style.css").toString());
         stage.setScene(scene);
         stage.show();
         
@@ -151,7 +152,7 @@ public class Lab extends Application{
         
         
     }
-    private double calculateAllowable(int days, double airfare, double rental, double miles, double parking, double taxi, double registration, double lodging){
+    private double calculateAllowable(int days, double miles, double parking, double taxi, double registration, double lodging){
         return miles * 0.27 +
                 days * 37.00 +
                 Math.min(parking, days * 10.00)+

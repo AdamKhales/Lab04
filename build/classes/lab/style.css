@@ -1,0 +1,18 @@
+.label {
+    -fx-font-weight: bold;
+}
+
+.button {
+    -fx-background-color: grey;
+    -fx-text-fill: white;
+    -fx-background-radius: 12;
+}
+
+.text-field {
+    -fx-background-color: transparent;
+    -fx-border-color: blue;
+}
+
+.root {
+    -fx-background-color: #73C180;
+}
