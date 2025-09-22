@@ -54,18 +54,28 @@ public class Lab extends Application{
         
         Button calculate = new Button("Calculate");
         calculate.setOnAction(e -> {
-            totalExpenses.setText("Total Expenses:" + calculateExpenses(
-            Integer.parseInt(days.getText()),
-            Double.parseDouble(airfare.getText()),
-            Double.parseDouble(rental.getText()),
-            Double.parseDouble(miles.getText()),
-            Double.parseDouble(parking.getText()),
-            Double.parseDouble(taxi.getText()),
-            Double.parseDouble(registration.getText()),
-            Double.parseDouble(lodging.getText())
-            ));
             
             
+            int d = verifyDay(days);
+            double af = verifyInput(airfare);
+            double r = verifyInput(rental);
+            double m = verifyInput(miles);
+            double p = verifyInput(parking);
+            double t = verifyInput(taxi);
+            double reg = verifyInput(registration);
+            double l = verifyInput(lodging);
+            
+            
+            
+            if (d == -1 || af == -1 || r == -1 || m == -1 || p == -1 || t == -1 || reg == -1 || l == -1) {
+            totalExpenses.setText("Error: enter valid numbers");
+            return;
+            }
+            
+            
+            totalExpenses.setText("Total Expenses: " + calculateExpenses(d,af,r,m,p,t,reg,l));
+            allowable.setText("Total Allowable: " + calculateAllowable(d,af,r,m,p,t,reg,l));
+          
         });
         
         
@@ -114,8 +124,8 @@ public class Lab extends Application{
         
         gp.add(lblLodging, 0, 7);
         gp.add(lodging, 1, 7);
-        gp.add(totalExpenses, 1, 9);
-        gp.add(allowable, 1, 10);
+        gp.add(totalExpenses, 0, 9);
+        gp.add(allowable, 0, 10);
         gp.add(clear, 0, 8);
         gp.add(calculate, 1, 8);
         gp.setPadding(new Insets(20,20,20,20));
@@ -130,7 +140,7 @@ public class Lab extends Application{
         
         
     }
-    public double calculateAllowable(int days, double airfare, double rental, double miles, double parking, double taxi, double registration, double lodging){
+    private double calculateAllowable(int days, double airfare, double rental, double miles, double parking, double taxi, double registration, double lodging){
         return miles * 0.27 +
                 days * 37.00 +
                 Math.min(parking, days * 10.00)+
@@ -140,9 +150,33 @@ public class Lab extends Application{
                 
     }
     
-    public String calculateExpenses(int days, double airfare, double rental, double miles, double parking, double taxi, double registration, double lodging){
+    private String calculateExpenses(int days, double airfare, double rental, double miles, double parking, double taxi, double registration, double lodging){
         double totalExpenses = airfare + rental + miles + parking + taxi + registration + (lodging * (days - 1));
         return "" + totalExpenses;
+    }
+    
+    private double verifyInput(TextField tx) {
+        String text = tx.getText();
+        if(text.isEmpty()) {
+            return 0.0;
+        }
+        try {
+            return Double.parseDouble(text);
+        } catch(NumberFormatException e) {
+            return -1;
+        }
+    }
+    
+    private int verifyDay(TextField tx) {
+        String text = tx.getText();
+        if(text.isEmpty()) {
+            return 0;
+        }
+        try {
+            return Integer.parseInt(text);
+        } catch(NumberFormatException e) {
+            return -1;
+        }
     }
     
 }
