@@ -57,6 +57,7 @@ public class Lab extends Application{
         TextField registration = new TextField();
         TextField lodging = new TextField();
         Label totalExpenses = new Label();
+        Label excess = new Label();
 
         
         Button calculate = new Button("Calculate");
@@ -71,6 +72,8 @@ public class Lab extends Application{
             Double.parseDouble(registration.getText()),
             Double.parseDouble(lodging.getText())
             ));
+            
+            
         });
         
         
@@ -133,7 +136,7 @@ public class Lab extends Application{
         
         
     }
-    public double calculation(int days, double airfare, double rental, double miles, double parking, double taxi, double registration, double lodging){
+    public String calculateExcess(int days, double airfare, double rental, double miles, double parking, double taxi, double registration, double lodging){
         double totalExpenses = days + airfare + rental + miles + parking + taxi + registration + (lodging * days);
         double allowableMiles = miles * 0.27;
         double allowableParking = days * 10.00;
@@ -147,9 +150,7 @@ public class Lab extends Application{
         
 
         
-        if (allowableParking < parking) {
-            remainingParking = parking - allowableParking;
-        }
+        
         if (allowableParking < parking) {
             remainingParking = parking - allowableParking;
         }
@@ -166,11 +167,11 @@ public class Lab extends Application{
         
         
         
-        return 0;
+        return "" + excess + airfare + rental;
     }
     
     public String calculateExpenses(int days, double airfare, double rental, double miles, double parking, double taxi, double registration, double lodging){
-        double totalExpenses = days * 37 + airfare + rental + miles + parking + taxi + registration + (lodging * (days - 1));
+        double totalExpenses = airfare + rental + miles + parking + taxi + registration + (lodging * (days - 1));
         return "" + totalExpenses;
     }
     
