@@ -56,6 +56,24 @@ public class Lab extends Application{
         TextField taxi = new TextField();
         TextField registration = new TextField();
         TextField lodging = new TextField();
+        Label totalExpenses = new Label();
+
+        
+        Button calculate = new Button("Calculate");
+        calculate.setOnAction(e -> {
+            totalExpenses.setText(calculateExpenses(
+            Integer.parseInt(days.getText()),
+            Double.parseDouble(airfare.getText()),
+            Double.parseDouble(rental.getText()),
+            Double.parseDouble(miles.getText()),
+            Double.parseDouble(parking.getText()),
+            Double.parseDouble(taxi.getText()),
+            Double.parseDouble(registration.getText()),
+            Double.parseDouble(lodging.getText())
+            ));
+        });
+        
+        
         
         Button clear = new Button("Clear");
         clear.setOnAction(e -> {
@@ -99,7 +117,9 @@ public class Lab extends Application{
         
         gp.add(lblLodging, 0, 7);
         gp.add(lodging, 1, 7);
+        gp.add(totalExpenses, 0, 9);
         gp.add(clear, 0, 8);
+        gp.add(calculate, 1, 8);
         gp.setPadding(new Insets(20,20,20,20));
         gp.setHgap(10);
         gp.setVgap(10);
@@ -113,9 +133,45 @@ public class Lab extends Application{
         
         
     }
-//    public double calculation(int days, double airfare,){
-//        double totalExpenses = 
-//        return 0;
+    public double calculation(int days, double airfare, double rental, double miles, double parking, double taxi, double registration, double lodging){
+        double totalExpenses = days + airfare + rental + miles + parking + taxi + registration + (lodging * days);
+        double allowableMiles = miles * 0.27;
+        double allowableParking = days * 10.00;
+        double allowableTaxi = days * 20.00;
+        double allowableLodging = days * 95.00;
+        double allowableMeals = days * 37.00;
+        
+        double remainingParking = 0;
+        double remainingTaxi = 0;
+        double remainingLodging = 0;
+        
+
+        
+        if (allowableParking < parking) {
+            remainingParking = parking - allowableParking;
+        }
+        if (allowableParking < parking) {
+            remainingParking = parking - allowableParking;
+        }
+        
+        if (allowableTaxi < taxi) {
+            remainingTaxi = taxi - allowableTaxi;
+        }
+        
+        if(allowableLodging < (lodging * days)) {
+            remainingLodging = lodging - allowableLodging;
+        }
+        
+        double excess = remainingParking + remainingTaxi + remainingLodging + airfare;
+        
+        
+        
+        return 0;
+    }
+    
+    public String calculateExpenses(int days, double airfare, double rental, double miles, double parking, double taxi, double registration, double lodging){
+        double totalExpenses = days * 37 + airfare + rental + miles + parking + taxi + registration + (lodging * (days - 1));
+        return "" + totalExpenses;
     }
     
 }
