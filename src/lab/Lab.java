@@ -50,6 +50,7 @@ public class Lab extends Application{
         TextField lodging = new TextField();
         Label totalExpenses = new Label();
         Label allowable = new Label();
+        Label excess = new Label();
 
         
         Button calculate = new Button("Calculate");
@@ -73,8 +74,16 @@ public class Lab extends Application{
             }
             
             
-            totalExpenses.setText("Total Expenses: " + calculateExpenses(d,af,r,m,p,t,reg,l));
-            allowable.setText("Total Allowable: " + calculateAllowable(d,af,r,m,p,t,reg,l));
+            double expenses = calculateExpenses(d,af,r,m,p,t,reg,l);
+            double totalAllowable = calculateAllowable(d,af,r,m,p,t,reg,l);
+            
+            totalExpenses.setText("Total Expenses: " + expenses + "$");
+            allowable.setText("Total Allowable: " + totalAllowable + "$");
+            
+            excess.setText(calculateExcess(expenses,totalAllowable));
+            
+            
+            
           
         });
         
@@ -92,6 +101,7 @@ public class Lab extends Application{
             lodging.setText("");
             totalExpenses.setText("");
             allowable.setText("");
+            excess.setText("");
         });
         
         
@@ -126,6 +136,7 @@ public class Lab extends Application{
         gp.add(lodging, 1, 7);
         gp.add(totalExpenses, 0, 9);
         gp.add(allowable, 0, 10);
+        gp.add(excess, 0, 11);
         gp.add(clear, 0, 8);
         gp.add(calculate, 1, 8);
         gp.setPadding(new Insets(20,20,20,20));
@@ -150,10 +161,20 @@ public class Lab extends Application{
                 
     }
     
-    private String calculateExpenses(int days, double airfare, double rental, double miles, double parking, double taxi, double registration, double lodging){
+    private double calculateExpenses(int days, double airfare, double rental, double miles, double parking, double taxi, double registration, double lodging){
         double totalExpenses = airfare + rental + miles + parking + taxi + registration + (lodging * (days - 1));
-        return "" + totalExpenses;
+        return totalExpenses;
     }
+    
+    private String calculateExcess(double totalExpenses, double allowable) {
+        if(allowable >= totalExpenses) {
+            return "You saved " + totalExpenses + "dollars";
+        } else {
+            return "You have exceeded the allowable money, you must pay " + (totalExpenses - allowable) + "dollars";
+        }
+        
+    }
+    
     
     private double verifyInput(TextField tx) {
         String text = tx.getText();
